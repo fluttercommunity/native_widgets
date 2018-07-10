@@ -3,6 +3,9 @@ description: A new Flutter package for using Android and iOS natively on each pl
 version: 0.0.1
 author: Rhodes Davis Jr. <rody.davis.jr@gmail.com>
 homepage: https://github.com/appleeducate/native_widgets
+environment:
+  sdk: ">=2.0.0-dev.28.0 <3.0.0"
+  flutter: ">=0.1.4 <2.0.0"
 
 dependencies:
   flutter:
