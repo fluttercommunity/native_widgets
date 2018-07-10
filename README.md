@@ -8,17 +8,18 @@ Avoid duplicating code and just write once for supported widgets.
 Android will use Material Design and iOS will use Cupertino style widgets.
 
 ## Usage
+
 To use this plugin, add `native_widgets` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
 Make sure you add the following permissions to your Android Manifest
 
-## Usage
 ``` dart
 // Import package
 import 'package:native_widgets/native_widgets.dart';
 ```
 
 ### Button
+
 ``` dart
 NativeButton(
     child: Text(
@@ -34,6 +35,7 @@ NativeButton(
 ```
 
 ### Switch
+
 ``` dart
 bool switchValue = false; // Set Inital Value
 void handelChanged(bool value) {
@@ -48,9 +50,10 @@ NativeSwitch(
 ),
 ```
 
-### Native Dialog
+### Dialog
+
 ``` dart
-// Function used to generate the dialog
+// Function to generate the dialog
 void showNativeDialog<T>({BuildContext context, Widget child}) {
     showDialog<T>(
       context: context,
@@ -84,4 +87,76 @@ showNativeDialog<null>(
     ],
   ));
 }
+```
+
+### Loading Indicator
+
+``` dart
+NativeLoadingIndicator();
+```
+
+### Tab Bar
+
+``` dart
+int _page = 0;
+final _pageController = PageController();
+
+void onPageChanged(int page) {
+  setState(() {
+    this._page = page;
+  });
+}
+
+static const _kDuration = const Duration(milliseconds: 300);
+static const _kCurve = Curves.ease;
+
+void navigationTapped(int page) {
+  _pageController.animateToPage(page, duration: _kDuration, curve: _kCurve);
+}
+
+@override
+void dispose() {
+  _pageController.dispose();
+  super.dispose();
+}
+
+final List<Widget> _pages = <Widget>[
+  ConstrainedBox(
+    constraints: const BoxConstraints.expand(),
+    child: Page1Widget(), // CHANGE TO YOUR PAGE
+  ),
+  ConstrainedBox(
+    constraints: const BoxConstraints.expand(),
+    child: Page2Widget(), // CHANGE TO YOUR PAGE
+  ),
+  ConstrainedBox(
+    constraints: const BoxConstraints.expand(),
+    child: Page3Widget(), // CHANGE TO YOUR PAGE
+  ),
+];
+
+final Widget botNavBar = NativeBottomTabBar(
+  currentIndex: _page,
+  onTap: navigationTapped,
+  activeColor: Colors.blueAccent,
+  items: [
+    BottomNavigationBarItem(
+        icon: Icon(Icons.info),
+        title: Text(
+          "TAB 1",
+          textScaleFactor: 1.0,
+        )),
+    BottomNavigationBarItem(
+        icon: Icon(Icons.info),
+        title: Text(
+          "TAB 2",
+          textScaleFactor: 1.0,
+        )),
+    BottomNavigationBarItem(
+        icon: Icon(Icons.info),
+        title: Text(
+          "TAB 3",
+          textScaleFactor: 1.0,
+        )),
+  ]);
 ```
