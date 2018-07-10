@@ -11,8 +11,6 @@ Android will use Material Design and iOS will use Cupertino style widgets.
 
 To use this plugin, add `native_widgets` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
-Make sure you add the following permissions to your Android Manifest
-
 ``` dart
 // Import package
 import 'package:native_widgets/native_widgets.dart';
