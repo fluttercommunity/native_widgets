@@ -115,19 +115,60 @@ class _NativeDialogState extends State<NativeDialog> {
 }
 
 // Native Loading Indicator
+
 class NativeLoadingIndicator extends StatelessWidget {
   final Key key;
+  final Widget text;
 
-  NativeLoadingIndicator({this.key});
+  NativeLoadingIndicator({this.key, this.text});
 
   @override
   Widget build(BuildContext context) {
     return (Platform.isIOS
-        ? CupertinoActivityIndicator(
-            key: key,
-            animating: true,
-          )
-        : CircularProgressIndicator(key: key));
+        ? text == null
+            ? Center(
+                child: CupertinoActivityIndicator(
+                  key: key,
+                  animating: true,
+                ),
+              )
+            : Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CupertinoActivityIndicator(
+                      key: key,
+                      animating: true,
+                    ),
+                    Container(
+                      height: 10.0,
+                    ),
+                    text,
+                  ],
+                ),
+              )
+        : text == null
+            ? Center(
+                child: CircularProgressIndicator(key: key),
+              )
+            : Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(
+                      key: key,
+                    ),
+                    Container(
+                      height: 10.0,
+                    ),
+                    text,
+                  ],
+                ),
+              ));
   }
 }
 
@@ -205,75 +246,196 @@ class NativeBottomTabBar extends StatelessWidget {
   }
 }
 
-// Native Scaffold (Issues with Tabs)
-// class NativeAppBar extends StatelessWidget {
-//   final Key key;
-//   final Color backgroundColor;
-//   // final Widget drawer;
-//   final Widget title;
-//   final List<Widget> actions;
+class NativePicker extends StatefulWidget {
+  final Widget title;
+  final Widget leading;
+  final Widget trailing;
+  final TextStyle style;
+  final List<String> items;
+  final ValueChanged<String> onSelection;
+  final bool setFirstDefault;
+  final String noneSelectedMessage;
+  final String defaultItem;
 
-//   // final TabBar bottom;
+  NativePicker({
+    this.leading,
+    this.title,
+    this.trailing,
+    this.style,
+    this.defaultItem,
+    @required this.items,
+    @required this.onSelection,
+    this.setFirstDefault,
+    this.noneSelectedMessage,
+  });
 
-//   NativeAppBar({
-//     this.key,
-//     this.backgroundColor,
-//     // this.drawer,
-//     this.title,
-//     this.actions,
-//   });
+  @override
+  _NativePickerState createState() => _NativePickerState();
+}
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return (Platform.isIOS
-//         ? CupertinoNavigationBar(
-//             middle: title,
-//             backgroundColor:
-//                 backgroundColor == null ? Colors.transparent : backgroundColor,
-//             // leading: drawer,
-//             trailing: Row(
-//               mainAxisAlignment: MainAxisAlignment.end,
-//               mainAxisSize: MainAxisSize.min,
-//               crossAxisAlignment: CrossAxisAlignment.end,
-//               children: actions.map((Widget item) => item).toList(),
-//             ),
-//           )
-//         : AppBar(
-//             backgroundColor: backgroundColor,
-//             key: key,
-//             title: title,
-//             actions: actions,
-//             // bottom: bottom,
-//           ));
-//   }
-// }
+class _NativePickerState extends State<NativePicker> {
+  double _kPickerSheetHeight = 216.0;
+  double _kPickerItemHeight = 32.0;
+  int _index = 0;
+  String _selection = "";
 
-// // body: Center(
-// //   child: Column(
-// //     mainAxisAlignment: MainAxisAlignment.center,
-// //     mainAxisSize: MainAxisSize.max,
-// //     crossAxisAlignment: CrossAxisAlignment.stretch,
-// //     children: <Widget>[
-// //       TabBar(
-// //         tabs: [
-// //           Tab(icon: Text('Share')),
-// //           Tab(icon: Text('Details')),
-// //         ],
-// //       ),
-// //       Expanded(
-// //         child: TabBarView(
-// //           children: [
-// //             ConstrainedBox(
-// //               constraints: const BoxConstraints.expand(),
-// //               child: ShareVideoPage(),
-// //             ),
-// //             ConstrainedBox(
-// //               constraints: const BoxConstraints.expand(),
-// //               child: VideoDetailsPage(widget.canEdit),
-// //             ),
-// //           ],
-// //         ),
-// //       )
-// //     ],
-// //   ),
-// // )
+  @override
+  void initState() {
+    super.initState();
+    if (widget.setFirstDefault != null && widget.setFirstDefault) {
+      setState(() {
+        _selection = widget.items[_index];
+        itemSelected(_selection);
+      });
+    } else if (widget.defaultItem != null && widget.defaultItem.isNotEmpty)
+      setState(() {
+        _selection = widget.defaultItem;
+        itemSelected(_selection);
+      });
+  }
+
+  void itemSelected(String selection) => widget.onSelection;
+
+  Widget _buildPicker() {
+    final FixedExtentScrollController scrollController =
+        new FixedExtentScrollController(initialItem: _index);
+
+    return Platform.isIOS
+        ? Container(
+            height: _kPickerSheetHeight,
+            color: CupertinoColors.white,
+            child: new DefaultTextStyle(
+              style: const TextStyle(
+                color: CupertinoColors.black,
+                fontSize: 22.0,
+              ),
+              child: new GestureDetector(
+                // Blocks taps from propagating to the modal sheet and popping.
+                onTap: () {},
+                child: new SafeArea(
+                  child: new CupertinoPicker(
+                    scrollController: scrollController,
+                    itemExtent: _kPickerItemHeight,
+                    backgroundColor: CupertinoColors.white,
+                    onSelectedItemChanged: (int index) {
+                      setState(() {
+                        _index = index;
+                        _selection = widget.items[_index];
+                        itemSelected(_selection);
+                      });
+                    },
+                    children: new List<Widget>.generate(widget.items.length,
+                        (int index) {
+                      return new Center(
+                        child: new Text(
+                          widget.items[index],
+                          textScaleFactor: 1.0,
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+              ),
+            ),
+          )
+        : DropdownButton<String>(
+            value: _selection,
+            items: widget.items
+                .map(
+                  (var item) => DropdownMenuItem<String>(
+                      value: item,
+                      child: SizedBox(
+                          width: 200.0,
+                          child: Text(
+                            item,
+                            textScaleFactor: 1.0,
+                            style: widget.style,
+                          ))),
+                )
+                .toList(),
+            onChanged: (String s) {
+              setState(() {
+                _selection = s;
+                itemSelected(_selection);
+              });
+            });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: widget.leading,
+      title: widget.title,
+      subtitle: widget.items == null
+          ? null
+          : Platform.isIOS
+              ? Text(
+                  _selection == null || _selection.isEmpty
+                      ? widget.noneSelectedMessage
+                      : _selection,
+                  textScaleFactor: 1.0,
+                  style: widget.style,
+                )
+              : _buildPicker(),
+      trailing: widget.trailing,
+      onTap: !Platform.isIOS
+          ? null
+          : () {
+              showModalBottomSheet<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return _buildPicker();
+                },
+              );
+            },
+    );
+  }
+}
+
+// Native App Bar
+class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final Key key;
+  final Color backgroundColor;
+  final Widget leading;
+  final Widget title;
+  final List<Widget> actions;
+
+  // final TabBar bottom;
+
+  NativeAppBar({
+    this.key,
+    this.backgroundColor,
+    this.leading,
+    this.title,
+    this.actions,
+    this.preferredSize = const Size.fromHeight(56.0),
+  });
+
+  @override
+  final Size preferredSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return (Platform.isIOS
+        ? CupertinoNavigationBar(
+            middle: title,
+            backgroundColor:
+                backgroundColor == null ? Colors.transparent : backgroundColor,
+            leading: leading,
+            trailing: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: actions.map((Widget item) => item).toList(),
+            ),
+          )
+        : AppBar(
+            backgroundColor: backgroundColor,
+            key: key,
+            title: title,
+            actions: actions,
+            leading: leading,
+          ));
+  }
+}
