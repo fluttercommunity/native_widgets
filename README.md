@@ -93,6 +93,8 @@ showNativeDialog<null>(
 
 ``` dart
 NativeLoadingIndicator();
+
+NativeLoadingIndicator(text: Text('Loading...'));
 ```
 
 ### Tab Bar
@@ -159,4 +161,35 @@ final Widget botNavBar = NativeBottomTabBar(
           textScaleFactor: 1.0,
         )),
   ]);
+```
+
+### App Bar
+
+``` dart
+appBar: NativeAppBar(
+  title: Text('Title Here'),
+  backgroundColor:
+      Platform.isIOS ? null : globals.isDark ? null : Colors.white,
+  leading: IconButton(
+    icon: Icon(
+      Icons.settings,
+      color: globals.isDark ? Colors.white : Colors.black,
+    ),
+    onPressed: () {
+      Navigator.pushNamed(context, '/settings');
+    },
+  ),
+  actions: <Widget>[
+    IconButton(
+      icon: Icon(Icons.delete_sweep,
+          color: globals.isDark ? Colors.white : Colors.black),
+      onPressed: null,
+    ),
+    IconButton(
+      icon: Icon(Icons.share,
+          color: globals.isDark ? Colors.white : Colors.black),
+      onPressed: null,
+    ),
+  ],
+),
 ```

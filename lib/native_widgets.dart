@@ -115,19 +115,60 @@ class _NativeDialogState extends State<NativeDialog> {
 }
 
 // Native Loading Indicator
+
 class NativeLoadingIndicator extends StatelessWidget {
   final Key key;
+  final Widget text;
 
-  NativeLoadingIndicator({this.key});
+  NativeLoadingIndicator({this.key, this.text});
 
   @override
   Widget build(BuildContext context) {
     return (Platform.isIOS
-        ? CupertinoActivityIndicator(
-            key: key,
-            animating: true,
-          )
-        : CircularProgressIndicator(key: key));
+        ? text == null
+            ? Center(
+                child: CupertinoActivityIndicator(
+                  key: key,
+                  animating: true,
+                ),
+              )
+            : Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CupertinoActivityIndicator(
+                      key: key,
+                      animating: true,
+                    ),
+                    Container(
+                      height: 10.0,
+                    ),
+                    text,
+                  ],
+                ),
+              )
+        : text == null
+            ? Center(
+                child: CircularProgressIndicator(key: key),
+              )
+            : Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(
+                      key: key,
+                    ),
+                    Container(
+                      height: 10.0,
+                    ),
+                    text,
+                  ],
+                ),
+              ));
   }
 }
 
@@ -352,76 +393,49 @@ class _NativePickerState extends State<NativePicker> {
   }
 }
 
+// Native App Bar
+class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final Key key;
+  final Color backgroundColor;
+  final Widget leading;
+  final Widget title;
+  final List<Widget> actions;
 
-// Native Scaffold (Issues with Tabs)
-// class NativeAppBar extends StatelessWidget {
-//   final Key key;
-//   final Color backgroundColor;
-//   // final Widget drawer;
-//   final Widget title;
-//   final List<Widget> actions;
+  // final TabBar bottom;
 
-//   // final TabBar bottom;
+  NativeAppBar({
+    this.key,
+    this.backgroundColor,
+    this.leading,
+    this.title,
+    this.actions,
+    this.preferredSize = const Size.fromHeight(56.0),
+  });
 
-//   NativeAppBar({
-//     this.key,
-//     this.backgroundColor,
-//     // this.drawer,
-//     this.title,
-//     this.actions,
-//   });
+  @override
+  final Size preferredSize;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return (Platform.isIOS
-//         ? CupertinoNavigationBar(
-//             middle: title,
-//             backgroundColor:
-//                 backgroundColor == null ? Colors.transparent : backgroundColor,
-//             // leading: drawer,
-//             trailing: Row(
-//               mainAxisAlignment: MainAxisAlignment.end,
-//               mainAxisSize: MainAxisSize.min,
-//               crossAxisAlignment: CrossAxisAlignment.end,
-//               children: actions.map((Widget item) => item).toList(),
-//             ),
-//           )
-//         : AppBar(
-//             backgroundColor: backgroundColor,
-//             key: key,
-//             title: title,
-//             actions: actions,
-//             // bottom: bottom,
-//           ));
-//   }
-// }
-
-// // body: Center(
-// //   child: Column(
-// //     mainAxisAlignment: MainAxisAlignment.center,
-// //     mainAxisSize: MainAxisSize.max,
-// //     crossAxisAlignment: CrossAxisAlignment.stretch,
-// //     children: <Widget>[
-// //       TabBar(
-// //         tabs: [
-// //           Tab(icon: Text('Share')),
-// //           Tab(icon: Text('Details')),
-// //         ],
-// //       ),
-// //       Expanded(
-// //         child: TabBarView(
-// //           children: [
-// //             ConstrainedBox(
-// //               constraints: const BoxConstraints.expand(),
-// //               child: ShareVideoPage(),
-// //             ),
-// //             ConstrainedBox(
-// //               constraints: const BoxConstraints.expand(),
-// //               child: VideoDetailsPage(widget.canEdit),
-// //             ),
-// //           ],
-// //         ),
-// //       )
-// //     ],
-// //   ),
-// // )
+  @override
+  Widget build(BuildContext context) {
+    return (Platform.isIOS
+        ? CupertinoNavigationBar(
+            middle: title,
+            backgroundColor:
+                backgroundColor == null ? Colors.transparent : backgroundColor,
+            leading: leading,
+            trailing: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: actions.map((Widget item) => item).toList(),
+            ),
+          )
+        : AppBar(
+            backgroundColor: backgroundColor,
+            key: key,
+            title: title,
+            actions: actions,
+            leading: leading,
+          ));
+  }
+}
