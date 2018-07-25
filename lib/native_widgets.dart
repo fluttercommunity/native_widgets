@@ -423,12 +423,14 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
             backgroundColor:
                 backgroundColor == null ? Colors.transparent : backgroundColor,
             leading: leading,
-            trailing: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: actions.map((Widget item) => item).toList(),
-            ),
+            trailing: actions == null
+                ? null
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: actions.map((Widget item) => item).toList(),
+                  ),
           )
         : AppBar(
             backgroundColor: backgroundColor,
