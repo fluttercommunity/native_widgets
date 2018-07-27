@@ -34,9 +34,7 @@ class NativeButton extends StatelessWidget {
       padding: paddingExternal == null ? EdgeInsets.all(0.0) : paddingExternal,
       child: Platform.isIOS
           ? CupertinoButton(
-              padding: paddingInternal == null
-                  ? EdgeInsets.all(0.0)
-                  : paddingInternal,
+              padding: paddingInternal,
               minSize: minSizeiOS,
               color: buttonColor,
               child: child,
@@ -47,9 +45,7 @@ class NativeButton extends StatelessWidget {
               height: heightAndroid,
               color: buttonColor,
               splashColor: splashColorAndroid,
-              padding: paddingInternal == null
-                  ? EdgeInsets.all(0.0)
-                  : paddingInternal,
+              padding: paddingInternal,
               child: child,
               onPressed: Feedback.wrapForTap(onPressed, context),
             ),
@@ -173,9 +169,11 @@ class NativeLoadingIndicator extends StatelessWidget {
                 ),
               )
         : text == null
-            ? Center(
-                child: CircularProgressIndicator(key: key),
-              )
+            ? center != null && center
+                ? Center(
+                    child: CircularProgressIndicator(key: key),
+                  )
+                : CircularProgressIndicator(key: key)
             : Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

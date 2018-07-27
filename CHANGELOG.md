@@ -1,3 +1,7 @@
+## [0.1.1] - Bug Fixes and Breaking Changes
+
+* Native button will now default to 16.0 padding internal
+
 ## [0.1.0] - Bug Fixes and Breaking Changes
 
 * Native button will now use Material Button on Android instead of raised button
