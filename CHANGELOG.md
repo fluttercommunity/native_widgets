@@ -1,3 +1,9 @@
+## [0.1.0] - Bug Fixes and Breaking Changes
+
+* Native button will now use Material Button on Android instead of raised button
+* You can specify android specific options and cupertino ios options
+* There is now internal and external paddign for buttons
+
 ## [0.0.4] - Bug Fixes
 
 * Bug Fix for Center Loading Indicator

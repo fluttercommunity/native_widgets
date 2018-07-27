@@ -10,29 +10,46 @@ class NativeButton extends StatelessWidget {
   final Widget child;
   final VoidCallback onPressed;
   final Color buttonColor;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry paddingExternal;
+  final EdgeInsetsGeometry paddingInternal;
+  final double minWidthAndroid;
+  final double minSizeiOS;
+  final double heightAndroid;
+  final Color splashColorAndroid;
 
-  NativeButton({
-    this.child,
-    this.onPressed,
-    this.padding,
-    this.buttonColor,
-  });
+  NativeButton(
+      {this.child,
+      this.onPressed,
+      this.paddingExternal,
+      this.paddingInternal,
+      this.buttonColor,
+      this.minWidthAndroid,
+      this.splashColorAndroid,
+      this.heightAndroid,
+      this.minSizeiOS});
 
   @override
   Widget build(BuildContext context) {
     return (Padding(
-      padding: padding == null ? EdgeInsets.all(0.0) : padding,
+      padding: paddingExternal == null ? EdgeInsets.all(0.0) : paddingExternal,
       child: Platform.isIOS
           ? CupertinoButton(
-              padding: padding,
+              padding: paddingInternal == null
+                  ? EdgeInsets.all(0.0)
+                  : paddingInternal,
+              minSize: minSizeiOS,
               color: buttonColor,
               child: child,
               onPressed: Feedback.wrapForTap(onPressed, context),
             )
-          : FlatButton(
+          : MaterialButton(
+              minWidth: minWidthAndroid,
+              height: heightAndroid,
               color: buttonColor,
-              padding: padding,
+              splashColor: splashColorAndroid,
+              padding: paddingInternal == null
+                  ? EdgeInsets.all(0.0)
+                  : paddingInternal,
               child: child,
               onPressed: Feedback.wrapForTap(onPressed, context),
             ),
