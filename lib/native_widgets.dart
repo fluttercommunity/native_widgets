@@ -403,6 +403,7 @@ class _NativePickerState extends State<NativePicker> {
 class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Key key;
   final Color backgroundColor;
+  final Color foregroundColor;
   final Widget leading;
   final Widget title;
   final List<Widget> actions;
@@ -411,6 +412,7 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   NativeAppBar({
     this.key,
+    this.foregroundColor,
     this.backgroundColor,
     this.leading,
     this.title,
@@ -429,6 +431,7 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
             backgroundColor:
                 backgroundColor == null ? Colors.transparent : backgroundColor,
             leading: leading,
+            actionsForegroundColor: foregroundColor,
             trailing: actions == null
                 ? null
                 : Row(
