@@ -119,19 +119,25 @@ class _NativeDialogState extends State<NativeDialog> {
 class NativeLoadingIndicator extends StatelessWidget {
   final Key key;
   final Widget text;
+  final bool center;
 
-  NativeLoadingIndicator({this.key, this.text});
+  NativeLoadingIndicator({this.key, this.text, this.center});
 
   @override
   Widget build(BuildContext context) {
     return (Platform.isIOS
         ? text == null
-            ? Center(
-                child: CupertinoActivityIndicator(
-                  key: key,
-                  animating: true,
-                ),
-              )
+            ? center != null && center
+                ? Center(
+                    child: CupertinoActivityIndicator(
+                      key: key,
+                      animating: true,
+                    ),
+                  )
+                : CupertinoActivityIndicator(
+                    key: key,
+                    animating: true,
+                  )
             : Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

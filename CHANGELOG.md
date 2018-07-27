@@ -1,3 +1,7 @@
+## [0.0.4] - Bug Fixes
+
+* Bug Fix for Center Loading Indicator
+
 ## [0.0.3] - Adding Components
 
 * Bug Fix for App Bar
