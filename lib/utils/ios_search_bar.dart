@@ -44,7 +44,7 @@ class IOSSearchBar extends AnimatedWidget {
   static final _paddingTween = new Tween(begin: 0.0, end: 60.0);
   static final _kFontSize = 13.0;
   final bool autoFocus;
-  Key _inputKey = new GlobalKey(debugLabel: 'inputText');
+  final Key _inputKey = new GlobalKey(debugLabel: 'inputText');
   @override
   Widget build(BuildContext context) {
     // if (!isSearching) {
@@ -167,6 +167,7 @@ class IOSSearchBar extends AnimatedWidget {
                               fontSize: _kFontSize,
                             ),
                             cursorColor: CupertinoColors.black,
+                            backgroundCursorColor: Colors.grey,
                             // backgroundCursorColor: Colors.grey,
                           ),
                         ),

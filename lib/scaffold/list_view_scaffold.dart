@@ -128,7 +128,7 @@ class NativeListViewSection {
 
   NativeListViewSection({
     this.header,
-    @required List<Widget> children = const <Widget>[],
+    @required List<Widget> children,
     bool addAutomaticKeepAlives = true,
     bool addRepaintBoundaries = true,
     bool addSemanticIndexes = true,
