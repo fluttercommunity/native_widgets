@@ -1,3 +1,9 @@
+# CHANGELOG
+
+## 1.3.3
+
+* Fix for Sticky Header
+
 ## 1.3.2 - 05.0629.2019
 
 * Upgrading Packages
