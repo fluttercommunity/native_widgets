@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.4
+
+* Upgrading dependencies
+
 ## 1.3.3
 
 * Fix for Sticky Header
