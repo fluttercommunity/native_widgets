@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.5
+
+* Bump Version
+
 ## 1.3.3
 
 * Fix for Sticky Header
