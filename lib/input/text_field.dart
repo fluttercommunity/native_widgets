@@ -4,7 +4,7 @@ class NativeTextInput extends StatelessWidget {
   final Widget leading, trailing;
   final TextEditingController controller;
   final TextInputType keyboardType;
-  final TextInputAction kayboardAction;
+  final TextInputAction keyboardAction;
   final bool autoFocus, autoCorrect, obscureText, enabled, maxLengthEnforced;
   final FocusNode focusNode;
   final TextAlign textAlign;
@@ -19,7 +19,7 @@ class NativeTextInput extends StatelessWidget {
     this.trailing,
     this.controller,
     this.keyboardType = TextInputType.text,
-    this.kayboardAction = TextInputAction.done,
+    this.keyboardAction = TextInputAction.done,
     this.autoCorrect = true,
     this.autoFocus = false,
     this.obscureText = false,
@@ -46,7 +46,7 @@ class NativeTextInput extends StatelessWidget {
           prefix: leading,
           suffix: trailing,
           clearButtonMode: OverlayVisibilityMode.editing,
-          textInputAction: kayboardAction,
+          textInputAction: keyboardAction,
           keyboardType: keyboardType,
           autocorrect: autoCorrect,
           autofocus: autoFocus,
@@ -71,7 +71,7 @@ class NativeTextInput extends StatelessWidget {
             decoration: decoration,
             textCapitalization: textCapitalization,
             controller: controller,
-            textInputAction: kayboardAction,
+            textInputAction: keyboardAction,
             keyboardType: keyboardType,
             autocorrect: autoCorrect,
             autofocus: autoFocus,
