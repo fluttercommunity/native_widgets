@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 1.3.7
+
+* intl: ">=0.15.0 <1.0.0"
+
+## 1.3.6
+
+* Fixing type
+* Bumping version
+
 ## 1.3.5
 
 * Bump Version
