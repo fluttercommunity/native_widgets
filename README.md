@@ -13,6 +13,8 @@ Avoid duplicating code and just write once for supported widgets.
 
 Android will use Material Design and iOS will use Cupertino style widgets.
 
+Online Demo: https://fluttercommunity.github.io/native_widgets/
+
 ## Usage
 
 To use this plugin, add `native_widgets` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).

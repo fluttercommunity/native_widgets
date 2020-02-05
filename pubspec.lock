@@ -87,7 +87,7 @@ packages:
       name: flutter_platform_widgets
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.30.1"
+    version: "0.32.4"
   flutter_slidable:
     dependency: "direct main"
     description:
@@ -120,7 +120,7 @@ packages:
       name: intl
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.0"
+    version: "0.16.1"
   matcher:
     dependency: transitive
     description:
@@ -223,7 +223,7 @@ packages:
       name: uuid
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.4"
   vector_math:
     dependency: transitive
     description:
@@ -239,5 +239,5 @@ packages:
     source: hosted
     version: "3.5.0"
 sdks:
-  dart: ">=2.4.0 <3.0.0"
+  dart: ">=2.6.0 <3.0.0"
   flutter: ">=1.12.13+hotfix.2 <2.0.0"
