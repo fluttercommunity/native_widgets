@@ -6,19 +6,19 @@ homepage: https://github.com/fluttercommunity/native_widgets
 maintainer: Rody Davis (@rodydavis)
 
 environment:
-  sdk: ">=2.0.0 <3.0.0"
+  sdk: '>=2.10.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_list_drag_and_drop: ^0.1.6
   flutter_localizations:
     sdk: flutter
-  flutter_sticky_header: ^0.4.0
-  uuid: ^2.0.4
-  intl: ^0.16.1
-  flutter_list_drag_and_drop: ^0.1.6
-  flutter_slidable: ^0.5.4
   flutter_platform_widgets: ^0.32.4
+  flutter_slidable: ^0.5.4
+  flutter_sticky_header: ^0.4.0
+  intl: ^0.17.0
+  uuid: ^2.0.4
 
 dev_dependencies:
   flutter_test:
@@ -27,5 +27,4 @@ dev_dependencies:
 # dependency_overrides:
 #   flutter_sticky_header:
 #     git: https://github.com/rodydavis/flutter_sticky_header
-
-flutter:
+flutter: null
