@@ -92,7 +92,7 @@ class NativeDialog<T> extends StatelessWidget {
               actions: actions
                   .map((NativeDialogAction item) => FlatButton(
                         child: Text(
-                          item.text?.data,
+                          item.text?.data?.toUpperCase(),
                           style: TextStyle(
                               color:
                                   item.isDestructive ? Colors.redAccent : null),
